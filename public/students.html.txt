@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registered Students</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Registered Students</h2>
+  <p>Data fetched from MongoDB database</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+      </tr>
+    </thead>
+    <tbody id="studentTable"></tbody>
+  </table>
+
+  <a href="index.html">← Back to Registration</a>
+</div>
+
+<footer>
+  Built using Node.js, Express & MongoDB
+</footer>
+
+<script>
+fetch("/students")
+  .then(res => res.json())
+  .then(data => {
+    const table = document.getElementById("studentTable");
+    data.forEach(s => {
+      table.innerHTML += `
+        <tr>
+          <td>${s.name}</td>
+          <td>${s.email}</td>
+          <td>${s.course}</td>
+        </tr>
+      `;
+    });
+  });
+</script>
+
+</body>
+</html>
